@@ -4,33 +4,35 @@ import java.io.*;
 /* Class to contain a torrent file */
 public class Tor
 {
-    File file;
+    private File file;
 	String label;
-	boolean isUploaded; // just infer from location?
+	// boolean isUploaded; // just infer from location?
 	
-	//String title;
-	//String tracker;
-	//long size;
+//	String title;
+//	String tracker;
+//	long size;
 	// future torrent internal handling?
 	
 	public Tor(File torFile) {
 		file = torFile;
 		//TODO parse info from file
 	}
-
-	public void setIsUploaded(boolean isUploaded) {
-		this.isUploaded = isUploaded;
-	}
-	public boolean isUploaded() {
-		return isUploaded;
+	
+//	public void setLabel(String torLabel) {
+//		label = torLabel;
+//	}
+//	public String getLabel() {
+//		return label;
+//	}
+	
+	/** returns torrent filename **/
+	public String getFilename() {
+		return file.getName();
 	}
 	
-	public void setLabel(String torLabel) {
-		label = torLabel;
+	/** returns torrent's full path **/
+	public String getFilePath() {
+		return file.getAbsolutePath();
 	}
-	public String getLabel() {
-		return label;
-	}
-	
 	
 }
