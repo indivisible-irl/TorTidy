@@ -33,7 +33,7 @@ public class TestMenu extends ListActivity {
 		Class<?> ourClass = null;
 		try {
 			String nextClass = tests[position];
-			ourClass = Class.forName("com.indivisible.mightyv." + nextClass);
+			ourClass = Class.forName("com.indivisible.tortidy." + nextClass);
 			Intent ourIntent = new Intent(TestMenu.this, ourClass);
 			startActivity(ourIntent);
 		} catch (ClassNotFoundException e) {
