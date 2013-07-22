@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.content.*;
 
 public class TestMenu extends ListActivity {
 
@@ -37,8 +38,10 @@ public class TestMenu extends ListActivity {
 			Intent ourIntent = new Intent(TestMenu.this, ourClass);
 			startActivity(ourIntent);
 		} catch (ClassNotFoundException e) {
-			Toast toast = Toast.makeText(TestMenu.this, "Not a suitable class", Toast.LENGTH_SHORT);
-			toast.show();
+			Toast.makeText(TestMenu.this, "Not a suitable class", Toast.LENGTH_SHORT).show();
+			e.printStackTrace();
+		} catch (ActivityNotFoundException e) {
+			Toast.makeText(this, "Activity not found: " +ourClass.getName(), Toast.LENGTH_SHORT).show();
 			e.printStackTrace();
 		}
 	}
