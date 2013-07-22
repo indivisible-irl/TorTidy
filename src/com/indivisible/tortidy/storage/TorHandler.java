@@ -16,7 +16,7 @@ public class TorHandler
 	}
 	
 	
-	
+	/* test given storage location for access */
 	private boolean isStorageOk() {
 		if (!downloads.exists()) {
 			Log.e(TAG, "download location not exists");
@@ -26,13 +26,19 @@ public class TorHandler
 			Log.e(TAG, "cannot read download location");
 			return false;
 		}
+        else if (!downloads.canWrite()) {
+            Log.e(TAG, "cannot write download location");
+			return false;
+        }
 		else if (!downloads.canExecute()) {
 			Log.e(TAG, "cannot execute download location");
 			return false;
 		}
 		else {
-		    // everything ok
+		    Log.d(TAG, "download location accessible");
 		    return true;
 		}
 	}
+    
+    
 }
