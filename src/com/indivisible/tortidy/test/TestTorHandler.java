@@ -3,6 +3,7 @@ import android.app.*;
 import android.os.*;
 import android.widget.*;
 import com.indivisible.tortidy.storage.*;
+import java.io.*;
 
 public class TestTorHandler extends ListActivity
 {
@@ -11,8 +12,8 @@ public class TestTorHandler extends ListActivity
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		String downloadDir = Environment.DIRECTORY_DOWNLOADS;
-		TorHandler tors = new TorHandler(downloadDir);
+		File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+		TorHandler tors = new TorHandler(downloadDir.getAbsolutePath());
 		tors.populateTorrents();
 		String[] torPaths = tors.allTorPaths();
 		
