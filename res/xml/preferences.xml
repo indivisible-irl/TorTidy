@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+	
+	
+	<PreferenceCategory 
+        android:title="@string/pref_dirs_cat">
+		
+		<EditTextPreference 
+		    android:key="@string/pref_dirs_down_key"
+			android:title="@string/pref_dirs_down_title"
+			android:summary="@string/pref_dirs_down_summary"
+			android:defaultValue=""
+			/>
+		<EditTextPreference 
+		    android:key="@string/pref_dirs_up_key"
+			android:title="@string/pref_dirs_up_title"
+			android:summary="@string/pref_dirs_up_summary"
+			android:defaultValue=""
+		/>
+		
+	</PreferenceCategory>
+	
+</PreferenceScreen>

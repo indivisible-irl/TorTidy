@@ -2,25 +2,24 @@ package com.indivisible.tortidy.prefs;
 
 import android.content.*;
 import android.os.*;
+import android.preference.*;
 
 /** interface for interacting with preferences **/
 public class Preferences
 {
     private static final String TAG = "com.indivisible.tortidy";
-    private static final String PREFS_NAME = "TorTidy";
-	private static final int PREFS_MODE = 0;
 	
 	private SharedPreferences prefs;
-    //private Editor prefEditor;
 	
-	// preferences:
+	//// preferences:
 	private static final String PREF_DIR_DOWN = "downloadsDir";
 	private static final String PREF_DIR_UP   = "uploadsDir";
 	
 	
 	
 	public Preferences(Context context) {
-		prefs = context.getSharedPreferences(PREFS_NAME, PREFS_MODE);
+		prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		//prefs = context.getSharedPreferences(PREFS_NAME, PREFS_MODE);
 	}
 	
 	
