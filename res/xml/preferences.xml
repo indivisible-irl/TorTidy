@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 	
-	
 	<PreferenceCategory 
         android:title="@string/pref_dirs_cat">
 		
@@ -16,6 +15,17 @@
 			android:title="@string/pref_dirs_up_title"
 			android:summary="@string/pref_dirs_up_summary"
 			android:defaultValue=""
+		/>
+		
+	</PreferenceCategory>
+	<PreferenceCategory
+		android:title="@string/pref_labels_cat">
+		
+		<EditTextPreference 
+		    android:key="@string/pref_labels_key"
+			android:title="@string/pref_labels_title"
+			android:summary="@string/pref_labels_summary"
+			android:defaultValue="@string/pref_labels_default"
 		/>
 		
 	</PreferenceCategory>
