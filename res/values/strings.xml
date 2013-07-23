@@ -21,4 +21,9 @@
 	<string name="pref_labels_title">Labels</string>
 	<string name="pref_labels_summary">Labels to categorise torrents</string>
 	<string name="pref_labels_default">app,book,film,game,music,tv</string>
+	
+	<string name="pref_debug_cat">DEBUG</string>
+	<string name="pref_debug_clearprefs_key">clearPrefs</string>
+	<string name="pref_debug_clearprefs_title">Clear Preferences</string>
+	<string name="pref_debug_clearprefs_summary">WARNING: This will clear all settings</string>
 </resources>

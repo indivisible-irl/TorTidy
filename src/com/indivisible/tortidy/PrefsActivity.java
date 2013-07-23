@@ -1,8 +1,10 @@
 package com.indivisible.tortidy;
 
-import android.preference.*;
-import android.content.SharedPreferences.*;
+import android.content.*;
 import android.os.*;
+import android.preference.*;
+import android.util.*;
+import java.io.*;
 
 public class PrefsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener
 {
@@ -12,6 +14,8 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 	private EditTextPreference prefEtDirDownloads;
 	private EditTextPreference prefEtDirUploads;
 	private EditTextPreference prefEtLabels;
+	
+	private Preference prefClearPrefs;
 	
 	
 	@Override
@@ -27,11 +31,36 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 		prefEtDirUploads   = (EditTextPreference) findPreference(getString(R.string.pref_dirs_up_key));
 		
 		prefEtLabels       = (EditTextPreference) findPreference(getString(R.string.pref_labels_key));
+		
+		prefClearPrefs     = findPreference(getString(R.string.pref_debug_clearprefs_key));
+		
+		populateDirPrefs(this.getApplicationContext());
+	}
+	
+	
+	private void populateDirPrefs(Context ctx) {
+		if (prefEtDirDownloads.getText().equals("")) {
+			Log.d(TAG, "Download dir not set. Saving default");
+			File defDownloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+			prefEtDirDownloads.setText(defDownloads.getAbsolutePath());
+		}
+		if (prefEtDirUploads.getText().equals("")) {
+			Log.d(TAG, "Upload dir not set. Saving default");
+			File defDownloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+			prefEtDirUploads.setText(defDownloads.getAbsolutePath());
+		}
 	}
 	
 	/** special handling of preference clicks **/
 	public boolean onPreferenceClick(Preference p1)
 	{
+		if (p1.equals(prefClearPrefs)) {
+			Log.d(TAG, "clearing all preferences");
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+			SharedPreferences.Editor editor = prefs.edit();
+			editor.clear();
+			editor.commit();
+		}
 		// notify click handled
 		return true; //false to pass on?
 	}

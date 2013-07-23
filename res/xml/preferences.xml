@@ -29,5 +29,15 @@
 		/>
 		
 	</PreferenceCategory>
+	<PreferenceCategory
+		android:title="DEBUG">
+		
+		<Preference
+			android:key="@string/pref_debug_clearprefs_key"
+			android:title="@string/pref_debug_clearprefs_title"
+			android:summary="@string/pref_debug_clearprefs_summary"
+			/>
+		
+	</PreferenceCategory>
 	
 </PreferenceScreen>
