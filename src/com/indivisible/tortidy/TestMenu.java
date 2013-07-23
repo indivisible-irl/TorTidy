@@ -16,7 +16,8 @@ public class TestMenu extends ListActivity {
 	// file names of the activities to offer (remember to add to AndroidManifest!)
 	String[] tests = { 
 		"MainActivity",
-		"test.TestTorHandler"
+		"test.TestTorHandler",
+		"PrefsHandler"
 	};
 
 	@Override
