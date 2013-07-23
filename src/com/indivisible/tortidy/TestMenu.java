@@ -17,7 +17,7 @@ public class TestMenu extends ListActivity {
 	String[] tests = { 
 		"MainActivity",
 		"test.TestTorHandler",
-		"PrefsHandler"
+		"PrefsActivity"
 	};
 
 	@Override
