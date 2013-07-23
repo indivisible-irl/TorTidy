@@ -90,9 +90,11 @@ public class TorHandler
 	/** collect all tor file paths **/
 	public String[] allTorPaths() {
 		String[] allPaths = new String[torrents.size()];
+		//int rootLen = downloadsDirectory.getAbsolutePath().length();
 		
 		for (int i=0; i<allPaths.length; i++) {
-			allPaths[i] = torrents.get(i).getFilePath();
+			allPaths[i] = torrents.get(i).getFilePath()
+			        .replaceFirst(downloadsDirectory.getAbsolutePath(), "");
 		}
 		
 		return allPaths;
