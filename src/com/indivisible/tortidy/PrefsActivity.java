@@ -3,6 +3,8 @@ package com.indivisible.tortidy;
 import android.content.*;
 import android.os.*;
 import android.preference.*;
+//import android.preference.OnPreferenceClickListener;
+import android.widget.Toast;
 import android.util.*;
 import java.io.*;
 
@@ -33,6 +35,7 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 		prefEtLabels       = (EditTextPreference) findPreference(getString(R.string.pref_labels_key));
 		
 		prefClearPrefs     = findPreference(getString(R.string.pref_debug_clearprefs_key));
+		prefClearPrefs.setOnPreferenceClickListener(this);
 		
 		populateDirPrefs(this.getApplicationContext());
 	}
@@ -52,14 +55,21 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 	}
 	
 	/** special handling of preference clicks **/
+	@Override
 	public boolean onPreferenceClick(Preference p1)
 	{
+		Log.i(TAG, "pref click: " +p1.getKey());
+		Toast.makeText(this, "pref click: " +p1.getKey(), Toast.LENGTH_SHORT).show();
+		
 		if (p1.equals(prefClearPrefs)) {
 			Log.d(TAG, "clearing all preferences");
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+			Toast.makeText(this, "Preferences cleared", Toast.LENGTH_SHORT).show();
+			
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			SharedPreferences.Editor editor = prefs.edit();
 			editor.clear();
 			editor.commit();
+			finish();
 		}
 		// notify click handled
 		return true; //false to pass on?
