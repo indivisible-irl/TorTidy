@@ -11,6 +11,7 @@ public class TorHandler
     private static final String TOR_FILE_EXT = ".torrent";
 	
     private File downloadsDirectory;
+	private File uploadedDirectory;
 	private List<Tor> torrents;
 	
 	public TorHandler(String downloadsDirectoryPath) {
@@ -108,4 +109,6 @@ public class TorHandler
 		}
 		return sb.toString();
 	}
+	
+	
 }
