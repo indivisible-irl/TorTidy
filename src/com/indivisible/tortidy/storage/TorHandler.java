@@ -82,6 +82,7 @@ public class TorHandler
     public void populateTorrents() {
         initLists();
 		
+		//TODO move to sep method
         if (isStorageOk(queueDirectory)) {
 			getTorrentsRecursive(queueTorrents, queueDirectory);
 		}
@@ -94,6 +95,13 @@ public class TorHandler
 		}
 		else {
 			Log.e(TAG, "unable to access storage: " +completedDirectory.getAbsolutePath());
+		}
+		
+		if (isStorageOk(monitorDirectory)) {
+			getTorrentsRecursive(monitorTorrents, monitorDirectory);
+		}
+		else {
+			Log.e(TAG, "unable to access storage: " +monitorDirectory.getAbsolutePath());
 		}
     }
     
