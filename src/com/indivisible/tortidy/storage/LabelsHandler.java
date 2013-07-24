@@ -24,7 +24,11 @@ public class LabelsHandler
 	public void loadLabels() {
 		String rawLabels = prefs.getLabelsRaw();
 		String[] splitLabels = rawLabels.split(LABEL_DIV);
-		labels = new ArrayList<String>(Arrays.asList(splitLabels));
+		
+		labels = new ArrayList<String>();
+		for (String rawLabel : splitLabels) {
+			labels.add(rawLabel.trim());
+		}
 	}
 	
 	/** save current labels to preferences **/
