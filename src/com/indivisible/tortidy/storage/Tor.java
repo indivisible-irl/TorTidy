@@ -5,25 +5,13 @@ import java.io.*;
 public class Tor
 {
     private File file;
-	String label;
-	// boolean isUploaded; // just infer from location?
+	private String label;
 	
-//	String title;
-//	String tracker;
-//	long size;
-	// future torrent internal handling?
+	//TODO future torrent internals handling
 	
 	public Tor(File torFile) {
 		file = torFile;
-		//TODO parse info from file
 	}
-	
-//	public void setLabel(String torLabel) {
-//		label = torLabel;
-//	}
-//	public String getLabel() {
-//		return label;
-//	}
 	
 	/** returns torrent filename **/
 	public String getFilename() {
@@ -33,6 +21,11 @@ public class Tor
 	/** returns torrent's full path **/
 	public String getFilePath() {
 		return file.getAbsolutePath();
+	}
+	
+	/** return the torrent's actual File **/
+	public File getFile() {
+		return file;
 	}
 	
 }
