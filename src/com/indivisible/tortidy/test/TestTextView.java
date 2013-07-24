@@ -12,14 +12,13 @@ public class TestTextView extends Activity
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
 		textView = (TextView) findViewById(R.id.main_text);
 		
+		String text;
+		//text = getExtDir();
+		//text = Environment.g.getAbsolutePath();
 		
-		String text = getExtDir();
-		
-		
-		textView.setText(text);
+		//textView.setText(text);
 		
 	}
 	
