@@ -13,7 +13,7 @@ public class TestTorHandler extends ListActivity
 		super.onCreate(savedInstanceState);
 		
 		TorHandler tors = new TorHandler(this.getApplicationContext());
-		tors.populateTorrents();
+		tors.populateLists();
 		String[] torPaths = tors.allTorPaths();
 		
 		setListAdapter(new ArrayAdapter<String>(
