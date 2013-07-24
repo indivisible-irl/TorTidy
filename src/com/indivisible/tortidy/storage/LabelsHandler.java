@@ -5,12 +5,13 @@ import android.util.*;
 import com.indivisible.tortidy.prefs.*;
 import java.util.*;
 
+/** class to take care of the labels **/
 public class LabelsHandler
 {
     private static final String TAG = "com.indivisible.tortidy";
 	private static final String LABEL_DIV = ",";
 	
-	private Preferences prefs; //SharedPreferences?
+	private Preferences prefs;
 	private List<String> labels;
 	
 	public LabelsHandler(Context ctx) {
@@ -19,12 +20,32 @@ public class LabelsHandler
 	}
 	
 	/** grab saved labels from shared preferences **/
-	private void loadLabels() {
+	public void loadLabels() {
 		String rawLabels = prefs.getLabelsRaw();
 		String[] splitLabels = rawLabels.split(LABEL_DIV);
 		labels = new ArrayList<String>(Arrays.asList(splitLabels));
 	}
 	
+	/** save current labels to preferences **/
+	public void saveLabels() {
+		if (testLabels(labels)) {
+	    	prefs.setLabelsRaw(getRawString());
+		}
+		else {
+			Log.e(TAG, "failed to save labels: '" +getRawString()+ "'");
+		}
+	}
+	
+	/** convert list of labels to a String **/
+	private String getRawString() {
+		StringBuilder sb = new StringBuilder();
+		for (String label : labels) {
+			sb.append(label).append(LABEL_DIV);
+		}
+		String labelsExcess = sb.toString();
+		// remove trailing seperator
+		return labelsExcess.substring(0,labelsExcess.lastIndexOf(LABEL_DIV));
+	}
 	
 	/** test labels in group string format for errors **/
 	private boolean testLabels(String strLabels) {
@@ -55,5 +76,10 @@ public class LabelsHandler
 		else {
 			return false;
 		}
+	}
+	
+	/** test if supplied string is a label **/
+	public boolean isLabel(String testingLabel) {
+		return labels.contains(testingLabel);
 	}
 }
