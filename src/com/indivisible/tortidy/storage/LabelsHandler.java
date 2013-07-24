@@ -19,6 +19,7 @@ public class LabelsHandler
 		loadLabels();
 	}
 	
+	
 	/** grab saved labels from shared preferences **/
 	public void loadLabels() {
 		String rawLabels = prefs.getLabelsRaw();
@@ -37,7 +38,7 @@ public class LabelsHandler
 	}
 	
 	/** convert list of labels to a String **/
-	private String getRawString() {
+	public String getRawString() {
 		StringBuilder sb = new StringBuilder();
 		for (String label : labels) {
 			sb.append(label).append(LABEL_DIV);
@@ -45,6 +46,15 @@ public class LabelsHandler
 		String labelsExcess = sb.toString();
 		// remove trailing seperator
 		return labelsExcess.substring(0,labelsExcess.lastIndexOf(LABEL_DIV));
+	}
+	
+	/** get labels as a String array **/
+	public String[] getLabelsArray() {
+		String[] labelsArray = new String[labels.size()];
+		for (int i=0; i<labelsArray.length; i++) {
+			labelsArray[i] = labels.get(i);
+		}
+		return labelsArray;
 	}
 	
 	/** test labels in group string format for errors **/

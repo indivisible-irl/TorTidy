@@ -14,9 +14,14 @@ public class TestTorHandler extends ListActivity
 		
 		TorrentCollection tors = new TorrentCollection(this.getApplicationContext());
 		tors.populateLists();
-		String[] torPaths = tors.allTorPaths();
+		//String[] testItems = tors.allTorPaths();
 		
+		LabelsHandler lh = new LabelsHandler(getApplicationContext());
+		String[] testItems = lh.getLabelsArray();
+		
+		
+		// fill list with 'testItems'
 		setListAdapter(new ArrayAdapter<String>(
-						   TestTorHandler.this, android.R.layout.simple_list_item_1, torPaths));
+						   TestTorHandler.this, android.R.layout.simple_list_item_1, testItems));
 	}
 }
