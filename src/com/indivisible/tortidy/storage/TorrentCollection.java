@@ -25,8 +25,8 @@ public class TorrentCollection
 		prefs = new Preferences(ctx);
 		
 		monitorDirectory   = new File(prefs.getMonitorDirPath());
-		queueDirectory     = new File(prefs.getQueueDirPath());
-		completedDirectory = new File(prefs.getCompletedDirPath());
+		queueDirectory     = StorageHandler.getQueueDirectory(ctx);
+		completedDirectory = StorageHandler.getCompletedDirectory(ctx);
 		
 		populateLists();
 	}
@@ -40,7 +40,7 @@ public class TorrentCollection
     
 	/** populate a torrent list with the directory's contents **/
 	private void populate(List<Tor> tors, File directory) {
-		if (StorageHandler.isStorageOk(directory)) {
+		if (directory != null) {
 			tors = new ArrayList<Tor>();
 			StorageHandler.getTorrentsRecursive(tors, directory);
 		}

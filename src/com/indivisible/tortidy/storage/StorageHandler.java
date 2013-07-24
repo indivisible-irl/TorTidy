@@ -4,16 +4,21 @@ import com.indivisible.tortidy.prefs.*;
 import java.io.*;
 import android.util.*;
 import java.util.*;
+import android.content.*;
+import android.os.*;
 
 public class StorageHandler
 {
     private static final String TAG = "com.indivisible.tortidy";
 	private static final String TOR_FILE_EXT = ".torrent";
+	private static final String DIR_APP_NAME = "TorTidy";
+	private static final String DIR_QUEUE_NAME = "Queue";
+	private static final String DIR_COMPLETED_NAME = "Completed";
 
 	
 	
 	/** test given storage location for access */
-	public static boolean isStorageOk(File testDirectory) {
+	private static boolean isStorageOk(File testDirectory) {
 		if (!testDirectory.exists()) {
 			Log.e(TAG, "location not exists: " +testDirectory.getAbsolutePath());
 			return false;
@@ -33,6 +38,69 @@ public class StorageHandler
 		else {
 		    Log.d(TAG, "location accessible: " +testDirectory.getAbsolutePath());
 		    return true;
+		}
+	}
+	
+	/** retrieve queue directory **/
+	public static File getQueueDirectory(Context ctx) {
+		return getExtDirectory(ctx, DIR_QUEUE_NAME);
+	}
+	
+	/** retrieve completed directory **/
+	public static File getCompletedDirectory(Context ctx) {
+		return getExtDirectory(ctx, DIR_COMPLETED_NAME);
+	}
+	
+	/** retrieve external directory named with supplied String **/
+	private static File getExtDirectory(Context ctx, String dir) {
+		File myExtDir = getExtAppDirectory(ctx);
+		if (myExtDir == null) {
+			Log.e(TAG, "ext app dir returned null");
+			return null;
+		}
+		File extDir = new File(myExtDir, dir);
+		return ensureDirExists(extDir);
+	}
+	
+	/** retrieve (and create) apps external directory **/
+	private static File getExtAppDirectory(Context ctx) {
+		if (isExternalStorageAccessible()) {
+		    File extDir = Environment.getExternalStorageDirectory();
+		    File myExtDir = new File (extDir, DIR_APP_NAME);
+		    return ensureDirExists(myExtDir);
+		}
+		else {
+			return ensureDirExists(ctx.getFilesDir());
+		}
+	}
+	
+	/** ensure a directory exists and return it **/
+	private static File ensureDirExists(File dir) {
+		if (dir == null) {
+			Log.e(TAG, "supplied dir was null");
+			return null;
+		}
+		else if (!dir.exists()) {
+			Log.d(TAG, "dir not exists, creating: " +dir.getAbsolutePath());
+			if (!dir.mkdirs()) {
+				Log.e(TAG, "unable to create dir: " +dir.getAbsolutePath());
+				return null; //TODO need better return/error handling
+			}
+		}
+		return dir;
+	}
+	
+	/** test if external storage is available **/
+	private static boolean isExternalStorageAccessible() {
+		String state = Environment.getExternalStorageState();
+		if (Environment.MEDIA_MOUNTED.equals(state)
+			&& Environment.getExternalStorageDirectory().canWrite()) {
+			return true;
+		}
+		else {
+		    Log.w(TAG, "External Storage unwritable:");
+	    	Log.w(TAG, state);
+	    	return false;
 		}
 	}
 	
