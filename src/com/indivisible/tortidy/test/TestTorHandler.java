@@ -12,8 +12,7 @@ public class TestTorHandler extends ListActivity
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-		TorHandler tors = new TorHandler(downloadDir.getAbsolutePath());
+		TorHandler tors = new TorHandler(this.getApplicationContext());
 		tors.populateTorrents();
 		String[] torPaths = tors.allTorPaths();
 		

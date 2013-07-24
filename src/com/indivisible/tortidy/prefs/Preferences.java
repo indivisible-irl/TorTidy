@@ -4,6 +4,7 @@ import android.content.*;
 import android.os.*;
 import android.preference.*;
 import com.indivisible.tortidy.*;
+import java.util.*;
 
 /** interface for interacting with preferences **/
 public class Preferences
@@ -14,8 +15,9 @@ public class Preferences
 	private Context context;
 	
 	//// preferences:
-	private String PREF_DIR_DOWN_KEY;
-	private String PREF_DIR_UP_KEY;
+	private String PREF_DIR_MONITOR_KEY;
+	private String PREF_DIR_QUEUE_KEY;
+	private String PREF_DIR_COMPLETED_KEY;
 	private String PREF_LABELS_KEY;
 	
 	
@@ -28,51 +30,56 @@ public class Preferences
 	
 	/** grab string resources **/
 	private void setStrings() {
-		PREF_DIR_DOWN_KEY = context.getString(R.string.pref_dirs_down_key);
-		PREF_DIR_UP_KEY = context.getString(R.string.pref_dirs_up_key);
-		PREF_LABELS_KEY = context.getString(R.string.pref_labels_key);
+		PREF_DIR_MONITOR_KEY   = context.getString(R.string.pref_dirs_monitor_key);
+		PREF_DIR_QUEUE_KEY     = context.getString(R.string.pref_dirs_queue_key);
+		PREF_DIR_COMPLETED_KEY = context.getString(R.string.pref_dirs_completed_key);
+		PREF_LABELS_KEY        = context.getString(R.string.pref_labels_key);
 	}
 	
-	/** retrieve the saved download directory **/
-	public String getDownloadsDir() {
+	/** retrieve the saved monitor directory, default: Downloads **/
+	public String getMonitorDirPath() {
 		
-		if (!prefs.contains(PREF_DIR_DOWN_KEY)) {
-			//TODO ask for downloads location
+		if (!prefs.contains(PREF_DIR_MONITOR_KEY)) {
 			String defaultDownloads = Environment.getExternalStoragePublicDirectory(
 		        Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
 
 			SharedPreferences.Editor editor = prefs.edit();
-			editor.putString(PREF_DIR_DOWN_KEY, defaultDownloads);
+			editor.putString(PREF_DIR_MONITOR_KEY, defaultDownloads);
 			editor.commit();
 		}
 		
-		return prefs.getString(PREF_DIR_DOWN_KEY, "error retrieving PREF_DIR_DOWN");
+		return prefs.getString(PREF_DIR_MONITOR_KEY, "!error retrieving PREF_DIR_MONITOR");
 	}
 	
-	/** retrieve the saved upload directory **/
-	public String getUploadsDir() {
-		if (!prefs.contains(PREF_DIR_UP_KEY)) {
-			//TODO ask for uploads location
-			String defaultDownloads = Environment.getExternalStoragePublicDirectory(
-		        Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
-
-			SharedPreferences.Editor editor = prefs.edit();
-			editor.putString(PREF_DIR_UP_KEY, defaultDownloads);
-			editor.commit();
+	/** retrieve the saved queue directory, default: app's storage **/
+	public String getQueueDirPath() {
+		if (!prefs.contains(PREF_DIR_QUEUE_KEY)) {
+			//TODO ask for uploads location?
+			return "queue not yet implemented";
 		}
-		return prefs.getString(PREF_DIR_UP_KEY, "error retrieving PREF_DIR_DOWN");
+		return prefs.getString(PREF_DIR_QUEUE_KEY, "error retrieving PREF_DIR_QUEUE");
 	}
 	
-	/** retrieve torrent labels **/
-	public String getLabels() {
+	/** retrieve the saved completed directory, default: app's storage **/
+	public String getCompletedDirPath() {
+		if (!prefs.contains(PREF_DIR_COMPLETED_KEY)) {
+			//TODO ask for uploads location?
+			return "completed not yet implemented";
+		}
+		return prefs.getString(PREF_DIR_COMPLETED_KEY, "error retrieving PREF_DIR_COMPLETED");
+	}	
+	
+	/** retrieve saved torrent labels **/
+	public String getLabelsRaw() {
 		String defLabels = context.getString(R.string.pref_labels_default);
 		return prefs.getString(PREF_LABELS_KEY, defLabels);
 	}
 	
-	/** set labels **/
-	public void setLabels(String s) {
+	/** set labels raw string **/
+	public void setLabelsRaw(String s) {
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString(PREF_LABELS_KEY, s);
 		editor.commit();
 	}
+	
 }

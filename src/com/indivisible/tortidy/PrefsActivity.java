@@ -13,8 +13,9 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
     private static final String TAG = "com.indivisible.tortidy";
 	
     //// preferences
-	private EditTextPreference prefEtDirDownloads;
-	private EditTextPreference prefEtDirUploads;
+	private EditTextPreference prefEtDirMonitor;
+	private EditTextPreference prefEtDirQueue;
+	private EditTextPreference prefEtDirCompleted;
 	private EditTextPreference prefEtLabels;
 	
 	private Preference prefClearPrefs;
@@ -29,8 +30,9 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 	
 	/** initialise preferences and tie to ui **/
 	private void initPrefs() {
-		prefEtDirDownloads = (EditTextPreference) findPreference(getString(R.string.pref_dirs_down_key));
-		prefEtDirUploads   = (EditTextPreference) findPreference(getString(R.string.pref_dirs_up_key));
+		prefEtDirMonitor   = (EditTextPreference) findPreference(getString(R.string.pref_dirs_monitor_key));
+		prefEtDirQueue     = (EditTextPreference) findPreference(getString(R.string.pref_dirs_queue_key));
+		prefEtDirCompleted = (EditTextPreference) findPreference(getString(R.string.pref_dirs_completed_key));
 		
 		prefEtLabels       = (EditTextPreference) findPreference(getString(R.string.pref_labels_key));
 		
@@ -42,15 +44,10 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 	
 	
 	private void populateDirPrefs(Context ctx) {
-		if (prefEtDirDownloads.getText().equals("")) {
-			Log.d(TAG, "Download dir not set. Saving default");
-			File defDownloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-			prefEtDirDownloads.setText(defDownloads.getAbsolutePath());
-		}
-		if (prefEtDirUploads.getText().equals("")) {
-			Log.d(TAG, "Upload dir not set. Saving default");
-			File defDownloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-			prefEtDirUploads.setText(defDownloads.getAbsolutePath());
+		if (prefEtDirMonitor.getText().equals("")) {
+			Log.d(TAG, "Monitor dir not set. Saving default");
+			File defMonitor = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+			prefEtDirMonitor.setText(defMonitor.getAbsolutePath());
 		}
 	}
 	

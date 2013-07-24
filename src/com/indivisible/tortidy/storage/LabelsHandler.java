@@ -10,7 +10,7 @@ public class LabelsHandler
     private static final String TAG = "com.indivisible.tortidy";
 	private static final String LABEL_DIV = ",";
 	
-	private Preferences prefs;
+	private Preferences prefs; //SharedPreferences?
 	private List<String> labels;
 	
 	public LabelsHandler(Context ctx) {
@@ -20,10 +20,11 @@ public class LabelsHandler
 	
 	/** grab saved labels from shared preferences **/
 	private void loadLabels() {
-		String rawLabels = prefs.getLabels();
+		String rawLabels = prefs.getLabelsRaw();
 		String[] splitLabels = rawLabels.split(LABEL_DIV);
 		labels = new ArrayList<String>(Arrays.asList(splitLabels));
 	}
+	
 	
 	/** test labels in group string format for errors **/
 	private boolean testLabels(String strLabels) {

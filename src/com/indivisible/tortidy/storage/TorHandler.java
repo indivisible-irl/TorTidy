@@ -3,6 +3,8 @@ package com.indivisible.tortidy.storage;
 import android.util.*;
 import java.io.*;
 import java.util.*;
+import android.content.*;
+import com.indivisible.tortidy.prefs.*;
 
 /** class to handle torrent file interactions **/
 public class TorHandler
@@ -10,17 +12,34 @@ public class TorHandler
     private static final String TAG = "com.indivisible.tortidy";
     private static final String TOR_FILE_EXT = ".torrent";
 	
-    private File downloadsDirectory;
-	private File uploadedDirectory;
-	private List<Tor> torrents;
+	private File monitorDirectory;
+    private File queueDirectory;
+	private File completedDirectory;
 	
-	public TorHandler(String downloadsDirectoryPath) {
-		Log.i(TAG, "download location: " +downloadsDirectoryPath);
-		downloadsDirectory = new File(downloadsDirectoryPath);
+	private List<Tor> monitorTorrents;
+	private List<Tor> queueTorrents;
+	private List<Tor> completedTorrents;
+	
+	private Preferences prefs;
+	
+	public TorHandler(Context ctx) {
+		prefs = new Preferences(ctx);
+		
+		monitorDirectory   = new File(prefs.getMonitorDirPath());
+		queueDirectory     = new File(prefs.getQueueDirPath());
+		completedDirectory = new File(prefs.getCompletedDirPath());
+		
+		initLists();
+	}
+	
+	private void initLists() {
+		monitorTorrents   = new ArrayList<Tor>();
+		queueTorrents     = new ArrayList<Tor>();
+		completedTorrents = new ArrayList<Tor>();
 	}
     
     /** Filter directory file lists for sub-dirs and tor files **/
-    private FileFilter filterDirsTors = new FileFilter() {
+    private FileFilter filterDirsAndTors = new FileFilter() {
 		public boolean accept(File file) {
 			if (file.isDirectory()) {
 				return true;
@@ -36,44 +55,51 @@ public class TorHandler
 	
 	
 	/** test given storage location for access */
-	private boolean isStorageOk() {
-		if (!downloadsDirectory.exists()) {
-			Log.e(TAG, "download location not exists");
+	private boolean isStorageOk(File testDirectory) {
+		if (!testDirectory.exists()) {
+			Log.e(TAG, "location not exists: " +testDirectory.getAbsolutePath());
 			return false;
 		}
-		else if (!downloadsDirectory.canRead()) {
-			Log.e(TAG, "cannot read download location");
+		else if (!testDirectory.canRead()) {
+			Log.e(TAG, "cannot read location: " +testDirectory.getAbsolutePath());
 			return false;
 		}
-        else if (!downloadsDirectory.canWrite()) {
-            Log.e(TAG, "cannot write download location");
+        else if (!testDirectory.canWrite()) {
+            Log.e(TAG, "cannot write location: " +testDirectory.getAbsolutePath());
 			return false;
         }
-		else if (!downloadsDirectory.canExecute()) {
-			Log.e(TAG, "cannot execute download location");
+		else if (!testDirectory.canExecute()) {
+			Log.e(TAG, "cannot execute location: " +testDirectory.getAbsolutePath());
 			return false;
 		}
 		else {
-		    Log.d(TAG, "download location accessible");
+		    Log.d(TAG, "location accessible: " +testDirectory.getAbsolutePath());
 		    return true;
 		}
 	}
     
 	/** populate the List<Tor> with torrent objects **/
     public void populateTorrents() {
-        torrents = new ArrayList<Tor>();
+        initLists();
 		
-        if (isStorageOk()) {
-			getTorrentsRecursive(torrents, downloadsDirectory);
+        if (isStorageOk(queueDirectory)) {
+			getTorrentsRecursive(queueTorrents, queueDirectory);
 		}
 		else {
-			Log.e(TAG, "unable to access storage");
+			Log.e(TAG, "unable to access storage: " +queueDirectory.getAbsolutePath());
+		}
+		
+		if (isStorageOk(completedDirectory)) {
+			getTorrentsRecursive(completedTorrents, completedDirectory);
+		}
+		else {
+			Log.e(TAG, "unable to access storage: " +completedDirectory.getAbsolutePath());
 		}
     }
     
 	/** recursive search for torrents **/
     private List<Tor> getTorrentsRecursive(List<Tor> tors, File directory) {
-        File[] fileList = directory.listFiles(filterDirsTors);
+        File[] fileList = directory.listFiles(filterDirsAndTors);
 		
 		for (File fileOrDir : fileList) {
 			if (fileOrDir.isDirectory()) {
@@ -90,12 +116,16 @@ public class TorHandler
 	
 	/** collect all tor file paths **/
 	public String[] allTorPaths() {
-		String[] allPaths = new String[torrents.size()];
-		//int rootLen = downloadsDirectory.getAbsolutePath().length();
+		List<Tor> allTorrents = new ArrayList<Tor>();
+		allTorrents.addAll(queueTorrents);
+		allTorrents.addAll(completedTorrents);
+		allTorrents.addAll(monitorTorrents);
+		String[] allPaths = new String[allTorrents.size()];
+		
 		
 		for (int i=0; i<allPaths.length; i++) {
-			allPaths[i] = torrents.get(i).getFilePath()
-			        .replaceFirst(downloadsDirectory.getAbsolutePath(), "");
+			allPaths[i] = allTorrents.get(i).getFilePath();
+			        //.replaceFirst(downloadsDirectory.getAbsolutePath(), "");
 		}
 		
 		return allPaths;

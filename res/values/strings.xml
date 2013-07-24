@@ -9,12 +9,15 @@
 	
 	<!--  Preferences  -->
 	<string name="pref_dirs_cat">Directories</string>
-	<string name="pref_dirs_down_key">downloadsDir</string>
-	<string name="pref_dirs_down_title">Downloads Directory</string>
-	<string name="pref_dirs_down_summary">Directory to monitor for .torrent files</string>
-	<string name="pref_dirs_up_key">uploadsDir</string>
-	<string name="pref_dirs_up_title">Uploads Directory</string>
-	<string name="pref_dirs_up_summary">Directory to move .torrent files to after handling</string>
+	<string name="pref_dirs_queue_key">queueDir</string>
+	<string name="pref_dirs_queue_title">Queue Directory</string>
+	<string name="pref_dirs_queue_summary">Directory to hold the queue of future torrents\nYou can manually add to this directory</string>
+	<string name="pref_dirs_completed_key">completedDir</string>
+	<string name="pref_dirs_completed_title">Completed Directory</string>
+	<string name="pref_dirs_completed_summary">Directory to move torrent files to after handling</string>
+	<string name="pref_dirs_monitor_key">monitorDir</string>
+	<string name="pref_dirs_monitor_title">Monitor Directory</string>
+	<string name="pref_dirs_monitor_summary">Directory to monitor for torrent files (usually Downloads)</string>
 	
     <string name="pref_labels_cat">Labels</string>
 	<string name="pref_labels_key">labels</string>
