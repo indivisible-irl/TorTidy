@@ -12,7 +12,7 @@ public class TestTorHandler extends ListActivity
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		TorHandler tors = new TorHandler(this.getApplicationContext());
+		TorrentCollection tors = new TorrentCollection(this.getApplicationContext());
 		tors.populateLists();
 		String[] torPaths = tors.allTorPaths();
 		

@@ -7,7 +7,7 @@ import android.content.*;
 import com.indivisible.tortidy.prefs.*;
 
 /** class to handle torrent file interactions **/
-public class TorHandler
+public class TorrentCollection
 {
     private static final String TAG = "com.indivisible.tortidy";
 	
@@ -21,7 +21,7 @@ public class TorHandler
 	
 	private Preferences prefs;
 	
-	public TorHandler(Context ctx) {
+	public TorrentCollection(Context ctx) {
 		prefs = new Preferences(ctx);
 		
 		monitorDirectory   = new File(prefs.getMonitorDirPath());
@@ -29,13 +29,6 @@ public class TorHandler
 		completedDirectory = new File(prefs.getCompletedDirPath());
 		
 		populateLists();
-	}
-	
-	/** empty all torrent lists **/
-	public void clear() {
-		monitorTorrents   = new ArrayList<Tor>();
-		queueTorrents     = new ArrayList<Tor>();
-		completedTorrents = new ArrayList<Tor>();
 	}
 	
 	/** populate the List<Tor> with torrent objects **/
@@ -54,6 +47,13 @@ public class TorHandler
 		else {
 			Log.e(TAG, "unable to access storage: " +directory.getAbsolutePath());
 		}
+	}
+	
+	/** empty all torrent lists **/
+	public void clearLists() {
+		monitorTorrents   = new ArrayList<Tor>();
+		queueTorrents     = new ArrayList<Tor>();
+		completedTorrents = new ArrayList<Tor>();
 	}
 	
 	/** collect all tor file paths **/
