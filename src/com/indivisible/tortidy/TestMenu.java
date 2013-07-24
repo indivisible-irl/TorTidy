@@ -17,6 +17,7 @@ public class TestMenu extends ListActivity {
 	String[] tests = { 
 		"MainActivity",
 		"test.TestTorHandler",
+		"test.TestTextView",
 		"PrefsActivity"
 	};
 
