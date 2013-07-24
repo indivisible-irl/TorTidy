@@ -18,8 +18,6 @@ public class Preferences
 	
 	//// preferences:
 	private String PREF_DIR_MONITOR_KEY;
-	private String PREF_DIR_QUEUE_KEY;
-	private String PREF_DIR_COMPLETED_KEY;
 	private String PREF_LABELS_KEY;
 	
 	
@@ -33,8 +31,6 @@ public class Preferences
 	/** grab string resources **/
 	private void setStrings() {
 		PREF_DIR_MONITOR_KEY   = context.getString(R.string.pref_dirs_monitor_key);
-		PREF_DIR_QUEUE_KEY     = context.getString(R.string.pref_dirs_queue_key);
-		PREF_DIR_COMPLETED_KEY = context.getString(R.string.pref_dirs_completed_key);
 		PREF_LABELS_KEY        = context.getString(R.string.pref_labels_key);
 	}
 	
@@ -44,33 +40,22 @@ public class Preferences
 		if (!prefs.contains(PREF_DIR_MONITOR_KEY)) {
 			String defaultDownloads = Environment.getExternalStoragePublicDirectory(
 		        Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
-
-			SharedPreferences.Editor editor = prefs.edit();
-			editor.putString(PREF_DIR_MONITOR_KEY, defaultDownloads);
-			editor.commit();
+			setMonitorDirPath(defaultDownloads);
 		}
 		
 		return prefs.getString(PREF_DIR_MONITOR_KEY, "!error retrieving PREF_DIR_MONITOR");
 	}
 	
-	/** retrieve the saved queue directory, default: app's storage **/
-	public String getQueueDirPath() {
-		if (!prefs.contains(PREF_DIR_QUEUE_KEY)) {
-			File extStorage = Environment.getExternalStorageDirectory();
-			
-			return extStorage.getAbsolutePath();
+	/** set the directory to monitor for torrents **/
+	public boolean setMonitorDirPath(String path) {
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(PREF_DIR_MONITOR_KEY, path);
+		boolean successful = editor.commit();
+		if (!successful) {
+			Log.e(TAG, "unable to save monitor dir");
 		}
-		return prefs.getString(PREF_DIR_QUEUE_KEY, "error retrieving PREF_DIR_QUEUE");
+		return successful;
 	}
-	
-	/** retrieve the saved completed directory, default: app's storage **/
-	public String getCompletedDirPath() {
-		if (!prefs.contains(PREF_DIR_COMPLETED_KEY)) {
-			//TODO ask for uploads location?
-			return "completed not yet implemented";
-		}
-		return prefs.getString(PREF_DIR_COMPLETED_KEY, "error retrieving PREF_DIR_COMPLETED");
-	}	
 	
 	/** retrieve saved torrent labels **/
 	public String getLabelsRaw() {
@@ -91,7 +76,6 @@ public class Preferences
 		}
 		return successful;
 	}
-	
 	
 	/** clear all preferences **/
 	public boolean clear() {
