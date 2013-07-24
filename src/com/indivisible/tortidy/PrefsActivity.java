@@ -7,6 +7,7 @@ import android.preference.*;
 import android.widget.Toast;
 import android.util.*;
 import java.io.*;
+import com.indivisible.tortidy.prefs.*;
 
 public class PrefsActivity extends PreferenceActivity implements Preference.OnPreferenceClickListener
 {
@@ -60,14 +61,19 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 		
 		if (p1.equals(prefClearPrefs)) {
 			Log.d(TAG, "clearing all preferences");
-			Toast.makeText(this, "Preferences cleared", Toast.LENGTH_SHORT).show();
 			
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-			SharedPreferences.Editor editor = prefs.edit();
-			editor.clear();
-			editor.commit();
-			finish();
+		    Preferences prefs = new Preferences(getApplicationContext());
+			if (prefs.clear()) {
+				Log.d(TAG, "successfully cleared");
+				Toast.makeText(this, "Preferences cleared", Toast.LENGTH_SHORT).show();
+				finish();
+			}
+			else {
+				Log.e(TAG, "could not clear prefs");
+				Toast.makeText(this, "Couldn't clear preferences", Toast.LENGTH_SHORT).show();
+			}
 		}
+		
 		// notify click handled
 		return true; //false to pass on?
 	}

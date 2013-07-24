@@ -2,9 +2,11 @@ package com.indivisible.tortidy.prefs;
 
 import android.content.*;
 import android.os.*;
+import android.util.*;
 import android.preference.*;
 import com.indivisible.tortidy.*;
 import java.util.*;
+import java.io.*;
 
 /** interface for interacting with preferences **/
 public class Preferences
@@ -54,8 +56,9 @@ public class Preferences
 	/** retrieve the saved queue directory, default: app's storage **/
 	public String getQueueDirPath() {
 		if (!prefs.contains(PREF_DIR_QUEUE_KEY)) {
-			//TODO ask for uploads location?
-			return "queue not yet implemented";
+			File extStorage = Environment.getExternalStorageDirectory();
+			
+			return extStorage.getAbsolutePath();
 		}
 		return prefs.getString(PREF_DIR_QUEUE_KEY, "error retrieving PREF_DIR_QUEUE");
 	}
@@ -76,10 +79,32 @@ public class Preferences
 	}
 	
 	/** set labels raw string **/
-	public void setLabelsRaw(String s) {
+	public boolean setLabelsRaw(String s) {
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString(PREF_LABELS_KEY, s);
-		editor.commit();
+		boolean successful = editor.commit();
+		if (successful) {
+			Log.i(TAG, "saved pref_labels: '" +s+ "'");
+		}
+		else {
+			Log.e(TAG, "failed to save pref_labels");
+		}
+		return successful;
+	}
+	
+	
+	/** clear all preferences **/
+	public boolean clear() {
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.clear();
+		boolean successful = editor.commit();
+		if (successful) {
+		    Log.i(TAG, "preferences cleared");
+		}
+		else {
+			Log.e(TAG, "failed to clear preferences");
+		}
+		return successful;
 	}
 	
 }
