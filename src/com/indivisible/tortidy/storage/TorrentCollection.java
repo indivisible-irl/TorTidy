@@ -24,7 +24,7 @@ public class TorrentCollection
 	public TorrentCollection(Context ctx) {
 		prefs = new Preferences(ctx);
 		
-		monitorDirectory   = new File(prefs.getMonitorDirPath());
+		monitorDirectory   = StorageHandler.getMonitorDirectory(ctx);
 		queueDirectory     = StorageHandler.getQueueDirectory(ctx);
 		completedDirectory = StorageHandler.getCompletedDirectory(ctx);
 		
@@ -33,20 +33,26 @@ public class TorrentCollection
 	
 	/** populate the List<Tor> with torrent objects **/
     public void populateLists() {
-        populate(queueTorrents, queueDirectory);
-		populate(completedTorrents, completedDirectory);
-		populate(monitorTorrents, monitorDirectory);
+        queueTorrents     = populate(queueDirectory);
+		completedTorrents = populate(completedDirectory);
+		monitorTorrents   = populate(monitorDirectory);
+		
+		Log.w(TAG, "after populateLists monitor has: " +monitorTorrents.size());
     }
     
 	/** populate a torrent list with the directory's contents **/
-	private void populate(List<Tor> tors, File directory) {
+	private List<Tor> populate(File directory) {
+		//Log.i(TAG, "Populate...:");
+		List<Tor> tors = new ArrayList<Tor>();
 		if (directory != null) {
-			tors = new ArrayList<Tor>();
-			StorageHandler.getTorrentsRecursive(tors, directory);
+			Log.d(TAG, directory.getAbsolutePath());
+			StorageHandler.getTorrentsRecursive(tors, directory, directory.getName());
+			//Log.i(TAG, "populated list contains: " +tors.size());
 		}
 		else {
 			Log.e(TAG, "unable to access storage: " +directory.getAbsolutePath());
 		}
+		return tors;
 	}
 	
 	/** empty all torrent lists **/
@@ -63,12 +69,13 @@ public class TorrentCollection
 		allTorrents.addAll(completedTorrents);
 		allTorrents.addAll(monitorTorrents);
 		String[] allPaths = new String[allTorrents.size()];
+		Log.i(TAG, "allTorrents size: " +allTorrents.size());
 		
 		for (int i=0; i<allPaths.length; i++) {
-			allPaths[i] = allTorrents.get(i).getFilePath();
+			allPaths[i] = allTorrents.get(i).getFilePath() //;
+			        +"\n\t("+ allTorrents.get(i).getLabel() +")";
 			        //.replaceFirst(downloadsDirectory.getAbsolutePath(), "");
 		}
-		
 		return allPaths;
 	}
 	
