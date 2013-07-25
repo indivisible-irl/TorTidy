@@ -9,8 +9,10 @@ public class Tor
 	
 	//TODO future torrent internals handling
 	
-	public Tor(File torFile) {
+	public Tor(File torFile, String str) {
 		file = torFile;
+		label = str;
+		
 	}
 	
 	/** returns torrent filename **/
@@ -28,4 +30,13 @@ public class Tor
 		return file;
 	}
 	
+	/** get the label **/
+	public String getLabel() {
+		return label;
+	}
+	
+	/** set the label **/
+	public void setLabel(String str) {
+		label = str;
+	}
 }

@@ -113,16 +113,16 @@ public class StorageHandler
 	}
 	
 	/** recursive search for torrents **/
-    public static List<Tor> getTorrentsRecursive(List<Tor> tors, File directory) {
+    public static List<Tor> getTorrentsRecursive(List<Tor> tors, File directory, String rootDir) {
         File[] fileList = directory.listFiles(filterDirsAndTors);
 
 		for (File fileOrDir : fileList) {
 			if (fileOrDir.isDirectory()) {
-				getTorrentsRecursive(tors, fileOrDir);
+				getTorrentsRecursive(tors, fileOrDir, rootDir);
 			}
 			else {
 				Log.d(TAG, "adding tor: " +fileOrDir.getAbsolutePath());
-				String label = LabelsHandler.getLabelFromLocation(fileOrDir);
+				String label = LabelsHandler.getLabelFromLocation(fileOrDir, rootDir);
 				tors.add(new Tor(fileOrDir, label));
 			}
 		}

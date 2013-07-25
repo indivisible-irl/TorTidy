@@ -2,19 +2,26 @@ package com.indivisible.tortidy.storage;
 
 import android.content.*;
 import android.util.*;
+import com.indivisible.tortidy.*;
 import com.indivisible.tortidy.prefs.*;
 import java.util.*;
+import java.io.*;
 
 /** class to take care of the labels **/
 public class LabelsHandler
 {
     private static final String TAG = "com.indivisible.tortidy";
 	private static final String LABEL_DIV = ",";
+	private static final String DIR_QUEUE = "Queue";
+	private static final String DIR_COMPLETE = "Complete";;
 	
 	private Preferences prefs;
 	private List<String> labels;
 	
 	public LabelsHandler(Context ctx) {
+		//DIR_QUEUE    = ctx.getString(R.string.dir_queue);
+		//DIR_COMPLETE = ctx.getString(R.string.dir_complete);
+		
 		prefs = new Preferences(ctx);
 		loadLabels();
 	}
@@ -82,7 +89,7 @@ public class LabelsHandler
 	}
 	
 	/** test a string for whitespace **/
-	private boolean containsWhitespace(String str) {
+	private static boolean containsWhitespace(String str) {
 		if (str.contains("\\s")) {
 			Log.w(TAG, "Label(s) contain whitespace '" +str+ "'");
 			return true;
@@ -93,7 +100,23 @@ public class LabelsHandler
 	}
 	
 	/** test if supplied string is a label **/
-	public boolean isLabel(String testingLabel) {
+	public boolean isExistingLabel(String testingLabel) {
 		return labels.contains(testingLabel);
 	}
+	
+	/** get a torrent file's label based on its location **/
+	public static String getLabelFromLocation(File file, String root) {
+		String parent = file.getParentFile().getName();
+		Log.i(TAG, "root: " +root+ ", parent: " +parent);
+		if (parent.equals(root)) { //TODO better test allowing for dup names
+			Log.d(TAG, "tor in parent dir ("+root+"), no label: "
+					+file.getAbsolutePath());
+			return "NONE";
+		} else {
+	    	Log.d(TAG, "location label = '" +parent+ "': "
+		            +file.getAbsolutePath());
+	    	return parent;
+		}
+	}
+	
 }
