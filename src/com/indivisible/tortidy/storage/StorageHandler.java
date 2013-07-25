@@ -41,6 +41,14 @@ public class StorageHandler
 		}
 	}
 	
+	/** form and get the monitor ditectory **/
+	public static File getMonitorDirectory(Context ctx) {
+		Preferences prefs = new Preferences(ctx);
+		String monitorPath = prefs.getMonitorDirPath();
+		File monitor = new File(monitorPath);
+		return ensureDirExists(monitor);
+	}
+	
 	/** retrieve queue directory **/
 	public static File getQueueDirectory(Context ctx) {
 		return getExtDirectory(ctx, DIR_QUEUE_NAME);
@@ -114,10 +122,11 @@ public class StorageHandler
 			}
 			else {
 				Log.d(TAG, "adding tor: " +fileOrDir.getAbsolutePath());
-				tors.add(new Tor(fileOrDir));
+				String label = LabelsHandler.getLabelFromLocation(fileOrDir);
+				tors.add(new Tor(fileOrDir, label));
 			}
 		}
-
+		Log.i(TAG, "found " +tors.size()+ "tors so far"); 
 		return tors;
     }
 	
