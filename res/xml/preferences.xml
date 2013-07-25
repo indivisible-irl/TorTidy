@@ -10,6 +10,7 @@
 			android:summary="@string/pref_dirs_monitor_summary"
 			android:defaultValue=""
 			/>
+	<!-- removed manual setting of queue and completed
 		<EditTextPreference 
 		    android:key="@string/pref_dirs_queue_key"
 			android:title="@string/pref_dirs_queue_title"
@@ -22,6 +23,7 @@
 			android:summary="@string/pref_dirs_completed_summary"
 			android:defaultValue=""
 		/>
+	-->
 		
 	</PreferenceCategory>
 	<PreferenceCategory

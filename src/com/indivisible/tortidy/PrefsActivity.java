@@ -15,8 +15,6 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 	
     //// preferences
 	private EditTextPreference prefEtDirMonitor;
-	private EditTextPreference prefEtDirQueue;
-	private EditTextPreference prefEtDirCompleted;
 	private EditTextPreference prefEtLabels;
 	
 	private Preference prefClearPrefs;
@@ -32,9 +30,6 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 	/** initialise preferences and tie to ui **/
 	private void initPrefs() {
 		prefEtDirMonitor   = (EditTextPreference) findPreference(getString(R.string.pref_dirs_monitor_key));
-		prefEtDirQueue     = (EditTextPreference) findPreference(getString(R.string.pref_dirs_queue_key));
-		prefEtDirCompleted = (EditTextPreference) findPreference(getString(R.string.pref_dirs_completed_key));
-		
 		prefEtLabels       = (EditTextPreference) findPreference(getString(R.string.pref_labels_key));
 		
 		prefClearPrefs     = findPreference(getString(R.string.pref_debug_clearprefs_key));
@@ -59,6 +54,7 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 		Log.i(TAG, "pref click: " +p1.getKey());
 		Toast.makeText(this, "pref click: " +p1.getKey(), Toast.LENGTH_SHORT).show();
 		
+		// clear all preferences
 		if (p1.equals(prefClearPrefs)) {
 			Log.d(TAG, "clearing all preferences");
 			
@@ -66,6 +62,7 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 			if (prefs.clear()) {
 				Log.d(TAG, "successfully cleared");
 				Toast.makeText(this, "Preferences cleared", Toast.LENGTH_SHORT).show();
+				// end activity as new values won't update until reload
 				finish();
 			}
 			else {
@@ -75,7 +72,7 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 		}
 		
 		// notify click handled
-		return true; //false to pass on?
+		return true;
 	}
 	
 }
