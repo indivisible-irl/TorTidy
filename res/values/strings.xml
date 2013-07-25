@@ -6,6 +6,10 @@
     <string name="app_name">TorTidy</string>
 	
 	
+	<!--  Directories  -->
+	<string name="dir_queue">Queue</string>
+	<string name="dir_complete">Complete</string>
+	
 	
 	<!--  Preferences  -->
 	<string name="pref_dirs_cat">Directories</string>
