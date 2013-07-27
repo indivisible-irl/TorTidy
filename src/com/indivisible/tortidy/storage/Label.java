@@ -36,4 +36,32 @@ public class Label
 	public void setExists(Boolean exists) {
 		isExistingLabel = exists;
 	}
+	
+	
+	// just test getTitle() for now
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj) {
+//			return true;
+//		}
+//		else if (!(obj instanceof Label)) {
+//			return false;
+//		}
+//		else {
+//			Label testLabel = (Label) obj;
+//			
+//			if (this.title.equals(testLabel.getTitle())) {
+//				return true;
+//			}
+//			else {
+//				return false;
+//			}
+//		}
+//	}
+//	
+//	@Override
+//	public int hashcode() {
+//		//TODO
+//		return 0;
+//	}
 }

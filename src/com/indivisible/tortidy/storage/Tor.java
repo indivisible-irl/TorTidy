@@ -5,13 +5,13 @@ import java.io.*;
 public class Tor
 {
     private File file;
-	private String label;
+	private Label label;
 	
 	//TODO future torrent internals handling
 	
-	public Tor(File torFile, String str) {
+	public Tor(File torFile, Label lab) {
 		file = torFile;
-		label = str;
+		label = lab;
 		
 	}
 	
@@ -31,12 +31,12 @@ public class Tor
 	}
 	
 	/** get the label **/
-	public String getLabel() {
+	public Label getLabel() {
 		return label;
 	}
 	
 	/** set the label **/
-	public void setLabel(String str) {
-		label = str;
+	public void setLabel(Label lab) {
+		label = lab;
 	}
 }

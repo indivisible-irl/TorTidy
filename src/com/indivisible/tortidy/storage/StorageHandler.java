@@ -121,8 +121,9 @@ public class StorageHandler
 				getTorrentsRecursive(tors, fileOrDir, rootDir);
 			}
 			else {
+				String labelTitle = LabelsHandler.getLabelFromLocation(fileOrDir, rootDir);
+				Label label = new Label(labelTitle, true);
 				Log.d(TAG, "adding tor: " +fileOrDir.getAbsolutePath());
-				String label = LabelsHandler.getLabelFromLocation(fileOrDir, rootDir);
 				tors.add(new Tor(fileOrDir, label));
 			}
 		}
