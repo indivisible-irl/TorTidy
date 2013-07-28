@@ -4,7 +4,7 @@ import android.content.*;
 import android.util.*;
 
 /** class to access the db's labels table **/
-public class LabelsTableHelper extends SQLiteOpenHelper
+public class LabelsHelper extends SQLiteOpenHelper
 {
 	private static final String TAG = "com.indivisible.tortidy";
 	
@@ -18,7 +18,7 @@ public class LabelsTableHelper extends SQLiteOpenHelper
 	
 	
 	/** constructor for the db's labels table **/
-	public LabelsTableHelper(Context context) {
+	public LabelsHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	
