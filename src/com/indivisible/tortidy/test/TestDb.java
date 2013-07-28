@@ -15,7 +15,7 @@ public class TestDb extends ListActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.test_db_labels);
 
 		labels = new LabelsDataSource(this.getApplicationContext());
 		labels.openWriteable();
