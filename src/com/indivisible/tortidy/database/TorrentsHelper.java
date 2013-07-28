@@ -7,9 +7,6 @@ public class TorrentsHelper extends SQLiteOpenHelper
 {
 	private static final String TAG = "com.indivisible.tortidy";
 	
-	//TODO move db name and version to a common class
-	public static final String DATABASE_NAME = "TorTidyDb";
-	public static final int DATABASE_VERSION = 3;
 	public static final String TABLE_TORRENTS = "torrents";
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_TITLE = "title";
@@ -19,7 +16,7 @@ public class TorrentsHelper extends SQLiteOpenHelper
 	
 	/** constructor for the db's torrents table **/
 	public TorrentsHelper(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		super(context, MyDatabase.DATABASE_NAME, null, MyDatabase.DATABASE_VERSION);
 	}
 	
 	/** create a new, empty table for torrents**/
