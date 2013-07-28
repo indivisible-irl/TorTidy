@@ -51,20 +51,22 @@ public class LabelsDataSource
 		values.put(LabelsHelper.COLUMN_TITLE, title);
 		values.put(LabelsHelper.COLUMN_EXISTS, booleanToInt(exists));
 		
-		// save new comment
 		long newId = db.insert(
 				LabelsHelper.TABLE_LABELS,
 				null,
 				values);
-		
-		// retrieve saved comment
+				
+		return getLabel(newId);
+	}
+	
+	public Label getLabel(long labelId) {
 		Cursor cursor = db.query(
-				LabelsHelper.TABLE_LABELS,
-				allColumns,
-				LabelsHelper.COLUMN_ID +" = "+ newId,
-				null, null, null, null);
-		
-		// convert cursor result to Label
+			LabelsHelper.TABLE_LABELS,
+			allColumns,
+			LabelsHelper.COLUMN_ID +" = "+ labelId,
+			null, null, null, null);
+
+		// convert cursor result
 		try {
 			if (cursor.moveToFirst()) {
 				Label label = cursorToLabel(cursor);
@@ -72,7 +74,7 @@ public class LabelsDataSource
 				return label;
 			}
 			else {
-				Log.e(TAG, "unable to retrieve newly saved label. id: " +newId+ ", title: " +title);
+				Log.e(TAG, "unable to retrieve saved label. id: " +labelId+ ", title: ?");
 				return null;
 			}
 		}
@@ -102,6 +104,7 @@ public class LabelsDataSource
 		}
 		
 		cursor.close();
+		Log.i(TAG, "num of all labels: " +allLabels.size());
 		return allLabels;
 	}
 	
