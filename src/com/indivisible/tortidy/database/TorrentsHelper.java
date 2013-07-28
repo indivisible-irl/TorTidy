@@ -9,7 +9,7 @@ public class TorrentsHelper extends SQLiteOpenHelper
 	
 	//TODO move db name and version to a common class
 	public static final String DATABASE_NAME = "TorTidyDb";
-	public static final int DATABASE_VERSION = 1;
+	public static final int DATABASE_VERSION = 3;
 	public static final String TABLE_TORRENTS = "torrents";
 	public static final String COLUMN_ID = "_id";
 	public static final String COLUMN_TITLE = "title";
@@ -51,8 +51,8 @@ public class TorrentsHelper extends SQLiteOpenHelper
 		sb.append(COLUMN_TITLE).append(" TEXT not null, ");
 		sb.append(COLUMN_FILEPATH).append(" TEXT ");
 		sb.append(");");
-
 		//TODO set foreign key for label id
+		
 		return sb.toString();
 	}
 	
