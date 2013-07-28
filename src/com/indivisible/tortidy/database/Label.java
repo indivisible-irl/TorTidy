@@ -57,6 +57,8 @@ public class Label
 	
 	@Override
 	public String toString() {
-		return title;
+		if (isExistingLabel)
+			return "1:" +title;
+		return "0:" +title;
 	}
 }
