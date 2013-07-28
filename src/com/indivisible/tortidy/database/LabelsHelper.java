@@ -14,7 +14,7 @@ public class LabelsHelper extends SQLiteOpenHelper
 	public static final String TABLE_LABELS  = "labels";
 	public static final String COLUMN_ID     = "_id";
 	public static final String COLUMN_TITLE  = "title";
-	public static final String COLUMN_EXISTS = "exists";
+	public static final String COLUMN_EXISTS = "existing_label";
 	
 	
 	/** constructor for the db's labels table **/
@@ -46,7 +46,7 @@ public class LabelsHelper extends SQLiteOpenHelper
 		
 		sb.append("create table ").append(TABLE_LABELS);
 		sb.append(" (");
-		sb.append(COLUMN_ID).append(" INTEGER primary key auto increment, ");
+		sb.append(COLUMN_ID).append(" INTEGER primary key autoincrement, ");
 		sb.append(COLUMN_EXISTS).append(" INTEGER, ");
 		sb.append(COLUMN_TITLE).append(" TEXT not null ");
 		sb.append(");");
