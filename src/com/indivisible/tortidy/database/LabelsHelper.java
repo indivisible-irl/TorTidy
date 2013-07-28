@@ -22,7 +22,7 @@ public class LabelsHelper extends SQLiteOpenHelper
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 	
-	/** create a new, empty table **/
+	/** create a new, empty table for labels**/
 	public void onCreate(SQLiteDatabase db)
 	{
 		Log.i(TAG, "creating labels table...");
@@ -30,7 +30,7 @@ public class LabelsHelper extends SQLiteOpenHelper
 		db.execSQL(create);
 	}
 	
-	/** drop and recreate table on new version **/
+	/** drop and recreate labels table on new version **/
 	public void onUpgrade(SQLiteDatabase db, int oldVerNum, int newVerNum)
 	{
 		Log.i(TAG, "upgrading labels table from " +oldVerNum+ " to " +newVerNum+ "...");
@@ -40,7 +40,7 @@ public class LabelsHelper extends SQLiteOpenHelper
 		onCreate(db);
 	}
 	
-	/** generate the sql statement to create the table in the db **/
+	/** generate the sql statement to create the labels table in the db **/
 	private static String createStatement() {
 		StringBuilder sb = new StringBuilder();
 		
