@@ -12,7 +12,12 @@ public class Label
 
 //// constructors
 	
-	/* create a new label */
+	/** create a new, blank label **/
+	public Label() {
+		// default constructor
+	}
+	
+	/** create a new label **/
 	public Label(long id, String labelTitle, boolean exists) {
 		this.id = id;
 		title = labelTitle;
@@ -30,20 +35,20 @@ public class Label
 		this.id = id;
 	}
 	
-	/* returns a label's title */
+	/** returns a label's title **/
 	public String getTitle() {
 		return title;
 	}
-	/* sets a label's title */
+	/** sets a label's title **/
 	public void setTitle(String labelTitle) {
 		title = labelTitle;
 	}
 
-	/* check if a label already exists */
+	/** check if a label already exists **/
 	public Boolean exists() {
 		return isExistingLabel;
 	}
-	/* set if a label exists */
+	/** set if a label exists **/
 	public void setExists(Boolean exists) {
 		isExistingLabel = exists;
 	}
