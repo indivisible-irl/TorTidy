@@ -6,14 +6,14 @@ public class Label
 
 //// data
 	
-	private int id;
+	private long id;
 	private String title;
 	private boolean isExistingLabel;
 
 //// constructors
 	
 	/* create a new label */
-	public Label(int id, String labelTitle, boolean exists) {
+	public Label(long id, String labelTitle, boolean exists) {
 		this.id = id;
 		title = labelTitle;
 		isExistingLabel = exists;
@@ -22,11 +22,11 @@ public class Label
 //// gets and sets
 
 	/** get the label's db id **/
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	/** set the label's db id **/
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
