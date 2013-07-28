@@ -26,6 +26,8 @@
             android:label="@string/app_name"
             android:name=".MainActivity" >
         </activity>
+		
+		<!-- test activities -->
 		<activity
             android:label="@string/app_name"
             android:name=".test.TestTorHandler" >
@@ -38,6 +40,11 @@
 			android:label="@string/app_name"
 			android:name=".test.TestTextView">
 		</activity>
+		<activity
+			android:label="@string/app_name"
+			android:name=".test.TestDb">
+		</activity>
+		
     </application>
 
 </manifest>
