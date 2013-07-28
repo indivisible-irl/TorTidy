@@ -1,4 +1,4 @@
-package com.indivisible.tortidy.storage;
+package com.indivisible.tortidy.storage_old;
 import java.io.*;
 
 /* Class to contain a torrent file */

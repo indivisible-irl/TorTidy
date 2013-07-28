@@ -1,4 +1,4 @@
-package com.indivisible.tortidy.storage;
+package com.indivisible.tortidy.storage_old;
 
 /* class to represent a torent's label */
 public class Label

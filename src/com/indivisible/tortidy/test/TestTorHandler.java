@@ -3,7 +3,7 @@ import android.app.*;
 import android.os.*;
 import android.util.*;
 import android.widget.*;
-import com.indivisible.tortidy.storage.*;
+import com.indivisible.tortidy.storage_old.*;
 import java.io.*;
 
 public class TestTorHandler extends ListActivity
