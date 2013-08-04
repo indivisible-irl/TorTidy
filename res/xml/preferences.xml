@@ -24,18 +24,7 @@
 			android:defaultValue=""
 		/>
 	-->
-		
-	</PreferenceCategory>
-	<PreferenceCategory
-		android:title="@string/pref_labels_cat">
-		
-		<EditTextPreference 
-		    android:key="@string/pref_labels_key"
-			android:title="@string/pref_labels_title"
-			android:summary="@string/pref_labels_summary"
-			android:defaultValue="@string/pref_labels_default"
-		/>
-		
+	
 	</PreferenceCategory>
 	<PreferenceCategory
 		android:title="DEBUG">

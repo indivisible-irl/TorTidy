@@ -3,7 +3,6 @@ package com.indivisible.tortidy;
 import android.content.*;
 import android.os.*;
 import android.preference.*;
-//import android.preference.OnPreferenceClickListener;
 import android.widget.Toast;
 import android.util.*;
 import java.io.*;
@@ -15,7 +14,7 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 	
     //// preferences
 	private EditTextPreference prefEtDirMonitor;
-	private EditTextPreference prefEtLabels;
+//	private EditTextPreference prefEtLabels;
 	
 	private Preference prefClearPrefs;
 	
@@ -30,7 +29,7 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 	/** initialise preferences and tie to ui **/
 	private void initPrefs() {
 		prefEtDirMonitor   = (EditTextPreference) findPreference(getString(R.string.pref_dirs_monitor_key));
-		prefEtLabels       = (EditTextPreference) findPreference(getString(R.string.pref_labels_key));
+//		prefEtLabels       = (EditTextPreference) findPreference(getString(R.string.pref_labels_key));
 		
 		prefClearPrefs     = findPreference(getString(R.string.pref_debug_clearprefs_key));
 		prefClearPrefs.setOnPreferenceClickListener(this);
@@ -51,6 +50,7 @@ public class PrefsActivity extends PreferenceActivity implements Preference.OnPr
 	@Override
 	public boolean onPreferenceClick(Preference p1)
 	{
+		//remember: need to set Listener before handling click
 		Log.i(TAG, "pref click: " +p1.getKey());
 		Toast.makeText(this, "pref click: " +p1.getKey(), Toast.LENGTH_SHORT).show();
 		
