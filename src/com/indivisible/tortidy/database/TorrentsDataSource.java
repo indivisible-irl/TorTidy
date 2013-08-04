@@ -5,6 +5,7 @@ import java.io.*;
 import android.database.*;
 import android.util.*;
 import java.util.*;
+import com.indivisible.tortidy.storage.*;
 
 public class TorrentsDataSource
 {
@@ -14,12 +15,14 @@ public class TorrentsDataSource
 	private static final String TAG = "com.indivisible.tortidy";
 	private SQLiteDatabase db;
 	private TorrentsHelper torrentsHelper;
+	private LabelsDataSource labels;
+	
 	private static final String[] allColumns = {
 		TorrentsHelper.COLUMN_ID,			// 0
 		TorrentsHelper.COLUMN_TITLE,		// 1
 		TorrentsHelper.COLUMN_FILEPATH,		// 2
 		TorrentsHelper.COLUMN_LABEL_ID};	// 3
-	private LabelsDataSource labels;
+
 
 //// constructor
 
@@ -63,7 +66,7 @@ public class TorrentsDataSource
 		return getTorrent(newId);
 	}
 	
-	
+	/** retrieve a Torrent from its id **/
 	public Torrent getTorrent(long torId) {
 		Cursor cursor = db.query(
 			TorrentsHelper.TABLE_TORRENTS,
@@ -86,7 +89,49 @@ public class TorrentsDataSource
 			cursor.close();
 		}
 	}
+	
+	/** retrieve a torrent from its title **/
+	public Torrent getTorrent(String title) {
+		Cursor cursor = db.query(
+			TorrentsHelper.TABLE_TORRENTS,
+			allColumns,
+			TorrentsHelper.COLUMN_TITLE +" = "+ title,
+			null, null, null, null);
 
+		try {
+			if (cursor.moveToFirst()) {
+				Torrent tor = cursorToTorrent(cursor);
+				Log.d(TAG, "created torrent: " +tor);
+				return tor;
+			}
+			else {
+				Log.e(TAG, "unable to retrieve saved tor. title: " +title);
+				return null;
+			}
+		}
+		finally {
+			cursor.close();
+		}
+	}
+
+	/** retrieve Torrent based on title or create new if not exists **/
+	public Torrent getOrCreateTorrent(File torFile, File root) {
+		//TODO change title to internal name
+		String title = torFile.getName();
+		Torrent tor = getTorrent(title);
+		
+		if (tor == null) {
+			Label label = labels.getOrCreateLabel(Util.getLabelFromLocation(torFile, root));
+			tor = getOrCreateTorrent(torFile, root);
+		}
+		
+		return tor;
+	}
+	
+	public Torrent updateOrCreateTorrent(Torrent newTor) {
+		return null;
+	}
+	
 	/** retrieve all labels from the db **/
 	public List<Torrent> getAllTorrents() {
 		List<Torrent> allTors = new ArrayList<Torrent>();
@@ -112,6 +157,27 @@ public class TorrentsDataSource
 		return allTors;
 	}
 
+	/** update a Torrent's entry. returns successful if exists and saved **/
+	public boolean updateTorrent(Torrent newTor) {
+		Torrent oldTor = getTorrent(newTor.getTitle());
+		
+		ContentValues values = new ContentValues();
+		values.put(TorrentsHelper.COLUMN_TITLE, newTor.getTitle());
+		values.put(TorrentsHelper.COLUMN_FILEPATH, newTor.getFile().getAbsolutePath());
+		values.put(TorrentsHelper.COLUMN_LABEL_ID, newTor.getLabel().getId());
+		
+		int numRowsAffected = db.update(
+				TorrentsHelper.TABLE_TORRENTS,
+				values,
+				TorrentsHelper.COLUMN_ID+ " = " +newTor.getId(),
+				null);
+		Log.d(TAG, "update: rows affected = " +numRowsAffected);
+		
+		if (numRowsAffected == 0)
+			return false;
+		return true;
+	}
+	
 	/** delete a single label. returns num of rows affected **/
 	public int deleteTorrent(Torrent tor) {
 		long id = tor.getId();

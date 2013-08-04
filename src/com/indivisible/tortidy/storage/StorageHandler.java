@@ -129,7 +129,7 @@ public class StorageHandler
 				labels.close();
 				
 				Log.d(TAG, "adding tor: " +fileOrDir.getAbsolutePath());
-				tors.add();
+				//tors.add();
 			}
 		}
 		Log.i(TAG, "found " +tors.size()+ "tors so far"); 

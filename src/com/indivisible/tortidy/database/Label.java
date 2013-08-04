@@ -1,7 +1,7 @@
 package com.indivisible.tortidy.database;
 
 /** class to represent a torrent's label **/
-public class Label
+public class Label implements Comparable<Label>
 {
 
 //// data
@@ -61,4 +61,10 @@ public class Label
 			return "1:" +title;
 		return "0:" +title;
 	}
+	
+	/** sort on label titles **/
+	public int compareTo(Label label) {
+		return title.compareTo(label.getTitle());
+	}
+	
 }

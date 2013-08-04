@@ -59,6 +59,7 @@ public class LabelsDataSource
 		return getLabel(newId);
 	}
 	
+	/** get a single label from its id **/
 	public Label getLabel(long labelId) {
 		Cursor cursor = db.query(
 			LabelsHelper.TABLE_LABELS,
@@ -70,7 +71,7 @@ public class LabelsDataSource
 		try {
 			if (cursor.moveToFirst()) {
 				Label label = cursorToLabel(cursor);
-				Log.d(TAG, "created label: " +label);
+				Log.d(TAG, "retrieved label: " +label);
 				return label;
 			}
 			else {
@@ -83,6 +84,38 @@ public class LabelsDataSource
 		}
 	}
 	
+	/** get a single label from its title **/
+	public Label getLabel(String title) {
+		Cursor cursor = db.query(
+			LabelsHelper.TABLE_LABELS,
+			allColumns,
+			LabelsHelper.COLUMN_TITLE +" = "+ title,
+			null, null, null, null);
+		try {
+			if (cursor.moveToFirst()) {
+				Label label = cursorToLabel(cursor);
+				Log.d(TAG, "retrieved label: " +label);
+				return label;
+			}
+			else {
+				Log.e(TAG, "unable to retrieve label. title: " +title);
+				return null;
+			}
+		}
+		finally {
+			cursor.close();
+		}
+	}
+	
+	/** get a label by title or create a new if not exists **/
+	public Label getOrCreateLabel(String title) {
+		Label label = getLabel(title);
+		if (label == null) {
+			label = createLabel(title, true);
+		}
+		return label;
+	}
+	
 	/** retrieve all labels from the db **/
 	public List<Label> getAllLabels() {
 		List<Label> allLabels = new ArrayList<Label>();
@@ -92,19 +125,24 @@ public class LabelsDataSource
 				allColumns,
 				null, null, null, null, null);
 		
-		if (cursor.moveToFirst()) {
-			while (!cursor.isAfterLast()) {
-				Label label = cursorToLabel(cursor);
-				allLabels.add(label);
-				cursor.moveToNext();
+		try {
+			if (cursor.moveToFirst()) {
+				while (!cursor.isAfterLast()) {
+					Label label = cursorToLabel(cursor);
+					allLabels.add(label);
+					cursor.moveToNext();
+				}
+			}
+			else {
+				Log.w(TAG, "getAllLabels: no labels were found");
 			}
 		}
-		else {
-			Log.w(TAG, "getAllLabels: no labels were found");
+		finally {
+			cursor.close();
 		}
 		
-		cursor.close();
 		Log.i(TAG, "num of all labels: " +allLabels.size());
+		Collections.sort(allLabels);
 		return allLabels;
 	}
 	

@@ -7,14 +7,21 @@ public class Torrent
 //// data
 
 	private long id;
-	private String title;
+	private String title; // is just filename for now
 	private File file;
 	private Label label;
 	
-//// constructor
+//// constructors
 	
 	public Torrent() {
 		// default constructor
+	}
+	
+	public Torrent(long id, String title, File file, Label label) {
+		this.id    = id;
+		this.title = title;
+		this.file  = file;
+		this.label = label;
 	}
 	
 //// gets and sets

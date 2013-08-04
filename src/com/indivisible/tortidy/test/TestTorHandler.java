@@ -3,7 +3,7 @@ import android.app.*;
 import android.os.*;
 import android.util.*;
 import android.widget.*;
-import com.indivisible.tortidy.storage_old.*;
+//import com.indivisible.tortidy.storage_old.*;
 import java.io.*;
 
 public class TestTorHandler extends ListActivity
@@ -14,9 +14,9 @@ public class TestTorHandler extends ListActivity
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		TorrentCollection tors = new TorrentCollection(this.getApplicationContext());
-		tors.populateLists();
-		String[] testItems = tors.allTorPaths();
+		//TorrentCollection tors = new TorrentCollection(this.getApplicationContext());
+		//tors.populateLists();
+		String[] testItems = new String[]{"unimplemented"};//tors.allTorPaths();
 		
 		//LabelsHandler lh = new LabelsHandler(getApplicationContext());
 		//String[] testItems = lh.getLabelsArray();
