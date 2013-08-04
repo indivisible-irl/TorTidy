@@ -1,4 +1,5 @@
 package com.indivisible.tortidy.database;
+import com.indivisible.tortidy.storage.*;
 
 /** class to represent a torrent's label **/
 public class Label implements Comparable<Label>
@@ -51,6 +52,16 @@ public class Label implements Comparable<Label>
 	/** set if a label exists **/
 	public void setExists(Boolean exists) {
 		isExistingLabel = exists;
+	}
+	
+	/** get label existence as an int for db use **/
+	public int getExistsAsInt() {
+		return Util.boolToInt(isExistingLabel);
+	}
+	
+	/** set label existence from an int for db use **/
+	public void setExists(int existsInt) {
+		isExistingLabel = Util.intToBool(existsInt);
 	}
 
 //// methods

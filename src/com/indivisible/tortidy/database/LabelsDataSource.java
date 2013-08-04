@@ -146,10 +146,50 @@ public class LabelsDataSource
 		return allLabels;
 	}
 	
+	/** update a label's row. returns success. **/
+	public boolean updateLabel(Label label) {
+		ContentValues values = new ContentValues();
+		values.put(LabelsHelper.COLUMN_TITLE, label.getTitle());
+		values.put(LabelsHelper.COLUMN_EXISTS, label.getExistsAsInt());
+		
+		int numRowsAffected = db.update(
+				LabelsHelper.TABLE_LABELS,
+				values,
+				LabelsHelper.COLUMN_ID+ " = " +label.getId(),
+				null);
+		
+		if (numRowsAffected == 0)
+			return false;
+		return true;
+	}
+	
+	/** creates or updates a label **/
+	public  Label updateOrCreateLabel(Label labelIn) {
+		Label label = getLabel(labelIn.getTitle());
+		
+		if (label == null) {
+			return createLabel(labelIn.getTitle(), labelIn.exists());
+		}
+		else {
+			label.setTitle(labelIn.getTitle());
+			label.setExists(labelIn.exists());
+			
+			boolean success = updateLabel(label);
+			if (success) {
+				return label;
+			}
+			else {
+				Log.e(TAG, "update failed. id: " +label.getId()+ ", title: " +label.getTitle());
+				return label;
+			}
+		}
+	}
+	
 	/** delete a single label. returns num of rows affected **/
 	public int deleteLabel(Label label) {
 		long id = label.getId();
 		Log.w(TAG, "deleting label: " +label);
+		
 		int numRowsAffected = db.delete(
 				LabelsHelper.TABLE_LABELS,
 				LabelsHelper.COLUMN_ID +" = "+ id,
