@@ -25,12 +25,6 @@
 	<string name="pref_dirs_monitor_title">Monitor Directory</string>
 	<string name="pref_dirs_monitor_summary">Directory to monitor for torrent files (usually Downloads)</string>
 	
-    <string name="pref_labels_cat">Labels</string>
-	<string name="pref_labels_key">labels</string>
-	<string name="pref_labels_title">Labels</string>
-	<string name="pref_labels_summary">Labels to categorise torrents</string>
-	<string name="pref_labels_default">app,book,film,game,music,tv</string>
-	
 	<string name="pref_debug_cat">DEBUG</string>
 	<string name="pref_debug_clearprefs_key">clearPrefs</string>
 	<string name="pref_debug_clearprefs_title">Clear Preferences</string>
