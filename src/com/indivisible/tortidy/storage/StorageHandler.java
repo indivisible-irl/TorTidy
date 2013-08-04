@@ -1,11 +1,12 @@
-package com.indivisible.tortidy.storage_old;
+package com.indivisible.tortidy.storage;
 
-import com.indivisible.tortidy.prefs.*;
-import java.io.*;
-import android.util.*;
-import java.util.*;
 import android.content.*;
 import android.os.*;
+import android.util.*;
+import com.indivisible.tortidy.prefs.*;
+import java.io.*;
+import java.util.*;
+import com.indivisible.tortidy.database.*;
 
 public class StorageHandler
 {
@@ -14,7 +15,6 @@ public class StorageHandler
 	private static final String DIR_APP_NAME = "TorTidy";
 	private static final String DIR_QUEUE_NAME = "Queue";
 	private static final String DIR_COMPLETED_NAME = "Completed";
-
 	
 	
 	/** test given storage location for access */
@@ -89,7 +89,7 @@ public class StorageHandler
 			return null;
 		}
 		else if (!dir.exists()) {
-			Log.d(TAG, "dir not exists, creating: " +dir.getAbsolutePath());
+			Log.i(TAG, "dir not exists, creating: " +dir.getAbsolutePath());
 			if (!dir.mkdirs()) {
 				Log.e(TAG, "unable to create dir: " +dir.getAbsolutePath());
 				return null; //TODO need better return/error handling
@@ -113,18 +113,23 @@ public class StorageHandler
 	}
 	
 	/** recursive search for torrents **/
-    public static List<Tor> getTorrentsRecursive(List<Tor> tors, File directory, String rootDir) {
+    public static List<Torrent> getTorrentsRecursive(Context ctx, List<Torrent> tors, File directory, File rootDir) {
+		//TODO pass in db connection to save recreating?
         File[] fileList = directory.listFiles(filterDirsAndTors);
 
 		for (File fileOrDir : fileList) {
 			if (fileOrDir.isDirectory()) {
-				getTorrentsRecursive(tors, fileOrDir, rootDir);
+				getTorrentsRecursive(ctx, tors, fileOrDir, rootDir);
 			}
 			else {
-				String labelTitle = LabelsHandler.getLabelFromLocation(fileOrDir, rootDir);
-				Label label = new Label(labelTitle, true);
+				String labelTitle = Util.getLabelFromLocation(fileOrDir, rootDir);
+				LabelsDataSource labels = new LabelsDataSource(ctx);
+				labels.openWriteable();
+				Label label = labels.getOrCreateLabel(labelTitle);
+				labels.close();
+				
 				Log.d(TAG, "adding tor: " +fileOrDir.getAbsolutePath());
-				tors.add(new Tor(fileOrDir, label));
+				tors.add();
 			}
 		}
 		Log.i(TAG, "found " +tors.size()+ "tors so far"); 
