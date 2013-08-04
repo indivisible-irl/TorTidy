@@ -18,7 +18,8 @@ public class TestMenu extends ListActivity {
 		"MainActivity",
 		"test.TestTorHandler",
 		"test.TestTextView",
-		"test.TestDb",
+		"test.TestDbLabels",
+		"test.TestDbTorrents",
 		"PrefsActivity"
 	};
 

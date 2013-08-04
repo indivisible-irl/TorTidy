@@ -8,10 +8,10 @@ import android.widget.*;
 import android.view.*;
 import java.io.*;
 
-public class TestDb extends ListActivity
+public class TestDbLabels extends ListActivity
 {
 	private LabelsDataSource labels;
-	private TorrentsDataSource tors;
+	//private TorrentsDataSource tors;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -20,16 +20,11 @@ public class TestDb extends ListActivity
 
 		labels = new LabelsDataSource(this.getApplicationContext());
 		labels.openWriteable();
-		tors = new TorrentsDataSource(this.getApplicationContext());
-		tors.openWriteable();
+		//tors = new TorrentsDataSource(this.getApplicationContext());
+		//tors.openWriteable();
 
-//		List<Label> values = labels.getAllLabels();
-//		ArrayAdapter<Label> adapter = new ArrayAdapter<Label>(
-//				this.getApplicationContext(),
-//				android.R.layout.simple_list_item_1,
-//				values);
-		List<Torrent> values = tors.getAllTorrents();
-		ArrayAdapter<Torrent> adapter = new ArrayAdapter<Torrent>(
+		List<Label> values = labels.getAllLabels();
+		ArrayAdapter<Label> adapter = new ArrayAdapter<Label>(
 				this.getApplicationContext(),
 				android.R.layout.simple_list_item_1,
 				values);
@@ -40,10 +35,10 @@ public class TestDb extends ListActivity
 	public void onClick(View view) {
 		@SuppressWarnings("unchecked")
 		
-		//ArrayAdapter<Label> adapter = (ArrayAdapter<Label>) getListAdapter();
+		ArrayAdapter<Label> adapter = (ArrayAdapter<Label>) getListAdapter();
 		Label label = null;
-		ArrayAdapter<Torrent> adapter = (ArrayAdapter<Torrent>) getListAdapter();
-		Torrent tor = null;
+		//ArrayAdapter<Torrent> adapter = (ArrayAdapter<Torrent>) getListAdapter();
+		//Torrent tor = null;
 		
 		switch (view.getId()) {
 			
@@ -52,19 +47,19 @@ public class TestDb extends ListActivity
 				int nextInt = new Random().nextInt(3);
 				
 				label = labels.createLabel(titles[nextInt], true);
-				//adapter.add(label);
-				tor = tors.createTorrent(titles[nextInt], new File("."), label);
-				adapter.add(tor);
+				adapter.add(label);
+				//tor = tors.createTorrent(titles[nextInt], new File("."), label);
+				//adapter.add(tor);
 				break;
 				
 			case R.id.bDelete:
 				if (getListAdapter().getCount() > 0) {
-					//label = (Label) getListAdapter().getItem(0);
-					//labels.deleteLabel(label);
-					//adapter.remove(label);
-					tor = (Torrent) getListAdapter().getItem(0);
-					tors.deleteTorrent(tor);
-					adapter.remove(tor);
+					label = (Label) getListAdapter().getItem(0);
+					labels.deleteLabel(label);
+					adapter.remove(label);
+					//tor = (Torrent) getListAdapter().getItem(0);
+					//tors.deleteTorrent(tor);
+					//adapter.remove(tor);
 				}
 				break;
 		}
@@ -74,14 +69,14 @@ public class TestDb extends ListActivity
 	@Override
 	protected void onResume() {
 		labels.openWriteable();
-		tors.openWriteable();
+		//tors.openWriteable();
 		super.onResume();
 	}
 
 	@Override
 	protected void onPause() {
 		labels.close();
-		tors.close();
+		//tors.close();
 		super.onPause();
 	}
 }
