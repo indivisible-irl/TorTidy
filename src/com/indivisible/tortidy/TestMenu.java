@@ -16,6 +16,7 @@ public class TestMenu extends ListActivity {
 	// file names of the activities to offer (remember to add to AndroidManifest!)
 	String[] tests = { 
 		"MainActivity",
+		"ui.LabelManagerActivity",
 		"test.TestTorHandler",
 		"test.TestTextView",
 		"test.TestDbLabels",

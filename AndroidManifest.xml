@@ -27,6 +27,12 @@
             android:name=".MainActivity" >
         </activity>
 		
+		<!-- ui activities -->
+		<activity
+			android:label="@string/app_name"
+			android:name=".ui.LabelManagerActivity" >
+		</activity>
+		
 		<!-- test activities -->
 		<activity
             android:label="@string/app_name"
