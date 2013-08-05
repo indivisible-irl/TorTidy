@@ -12,33 +12,24 @@ public class LabelManagerActivity extends ListActivity
 {
 	private static final String TAG = "com.indivisible.tortidy";
 	
-	private Button bAddOrConfirm;
-	private Button bDeleteOrCancel;
+	private Button bAdd;
+	private ListView lvLabels;
 	
 	private LabelsDataSource labels;
-	private boolean isDeleteMode;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.label_manager);
 		
-		isDeleteMode = false;
-		
-		// buttons:
-		bAddOrConfirm   = (Button) findViewById(R.id.bLabelAddOrConfirm);
-		bDeleteOrCancel = (Button) findViewById(R.id.bLabelDeleteOrCancel);
-		
 		// labels:
 		labels = new LabelsDataSource(this.getApplicationContext());
 		labels.openWriteable();
 		
-		List<Label> labelList = labels.getAllLabels();
-		ArrayAdapter adapter = new ArrayAdapter<Label>(
-				this.getApplicationContext(),
-				android.R.layout.simple_list_item_1,
-				labelList);
-		setListAdapter(adapter);
+		// ui
+		initInterface();	//must init interface first
+		setList();
+		
 	}
 	
 	@Override
@@ -53,29 +44,35 @@ public class LabelManagerActivity extends ListActivity
 		super.onPause();
 	}
 	
-	//// onClick (use xml call or listeners?)
+	/** initialise the ui elements **/
+	private void initInterface() {
+		bAdd     = (Button) findViewById(R.id.bLabelAdd);
+		lvLabels = (ListView) findViewById(android.R.id.list);
+	}
+	
+	/** populate ListView in normal mode **/
+	private void setList() {
+		List<Label> labelList = labels.getAllLabels();
+		ArrayAdapter adapter = new ArrayAdapter<Label>(
+			this.getApplicationContext(),
+			android.R.layout.simple_list_item_1,
+			labelList);
+		setListAdapter(adapter);
+	}
+	
+	
+	/** onClick method **/  //(use xml call or listeners?)
 	public void onClick(View view) {
 		
-		if(isDeleteMode) {
-			switch (view.getId()) {
-				case R.id.bLabelAddOrConfirm:
-					break;
-				case R.id.bLabelDeleteOrCancel:
-					isDeleteMode = false;
-					break;
-			}
-		}
-		else {
-			switch (view.getId()) {
-				case R.id.bLabelAddOrConfirm:
-					break;
-			
-				case R.id.bLabelDeleteOrCancel:
-					isDeleteMode = true;
-					break;
-			}
-		}
-		
+		switch (view.getId()) {
+			case R.id.bLabelAdd:
+				break;
+			default:
+				Toast.makeText(this,
+						"unhandled click:\n" +view.getTag(),
+						Toast.LENGTH_SHORT).show();
+				break;
+		}//end switch
 	}
 	
 }

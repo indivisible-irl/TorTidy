@@ -36,10 +36,10 @@
 	
 	<!-- ui elements -->
 		
-		<string name="b_confirm">Ok</string>
-		<string name="b_cancel">Cancel</string>
+		<string name="btn_confirm">Ok</string>
+		<string name="btn_cancel">Cancel</string>
+		<string name="btn_delete">Delete</string>
 		
 		<string name="b_label_add">Add Label</string>
-		<string name="b_label_delete">Delete</string>
 		
 </resources>
