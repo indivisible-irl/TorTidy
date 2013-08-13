@@ -1,7 +1,9 @@
 package com.indivisible.tortidy.database;
+
 import android.database.sqlite.*;
 import android.util.*;
 import android.content.*;
+
 
 public class TorrentsHelper extends SQLiteOpenHelper
 {
@@ -19,7 +21,7 @@ public class TorrentsHelper extends SQLiteOpenHelper
 		super(context, MyDatabase.DATABASE_NAME, null, MyDatabase.DATABASE_VERSION);
 	}
 	
-	/** create a new, empty table for torrents**/
+	/** create a new, empty table for torrents **/
 	public void onCreate(SQLiteDatabase db)
 	{
 		Log.i(TAG, "creating torrents table...");
