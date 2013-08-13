@@ -12,10 +12,15 @@ public class LabelManagerActivity extends ListActivity
 {
 	private static final String TAG = "com.indivisible.tortidy";
 	
+//// fields
+	
 	private Button bAdd;
 	private ListView lvLabels;
 	
 	private LabelsDataSource labels;
+	private ArrayAdapter adapter;
+	
+//// activity methods
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,8 @@ public class LabelManagerActivity extends ListActivity
 		super.onPause();
 	}
 	
+//// initialisation methods
+	
 	/** initialise the ui elements **/
 	private void initInterface() {
 		bAdd     = (Button) findViewById(R.id.bLabelAdd);
@@ -53,13 +60,15 @@ public class LabelManagerActivity extends ListActivity
 	/** populate ListView in normal mode **/
 	private void setList() {
 		List<Label> labelList = labels.getAllLabels();
-		ArrayAdapter adapter = new ArrayAdapter<Label>(
+		//NB made adapter a class var, performance/mem issue?
+		adapter = new ArrayAdapter<Label>(
 			this.getApplicationContext(),
 			android.R.layout.simple_list_item_1,
 			labelList);
 		setListAdapter(adapter);
 	}
 	
+//// interaction handling
 	
 	/** onClick method **/  //(use xml call or listeners?)
 	public void onClick(View view) {
@@ -75,4 +84,14 @@ public class LabelManagerActivity extends ListActivity
 		}//end switch
 	}
 	
+	
+	
+//// dialogs
+	
+	private boolean showNewLabelDialog() {
+		Dialog newLabelDialog = new Dialog();
+		
+		
+		return false;
+	}
 }
