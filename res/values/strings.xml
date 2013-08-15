@@ -1,46 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--  App Strings  -->
-		
-		<string name="hello">Hello World, MainActivity!</string>
-	    <string name="app_name">TorTidy</string>
-	
-	
-	<!--  Directories  -->
-		
-		<string name="dir_queue">Queue</string>
-		<string name="dir_complete">Complete</string>
-	
-	
-	<!--  Preferences  -->
-		
-		<string name="pref_dirs_cat">Directories</string>
-		<!--
+    <!-- App Strings -->
+
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">TorTidy</string>
+
+    <!-- Directories -->
+
+    <string name="dir_queue">Queue</string>
+    <string name="dir_complete">Complete</string>
+
+    <!-- Preferences -->
+
+    <string name="pref_dirs_cat">Directories</string>
+    <!--
 		<string name="pref_dirs_queue_key">queueDir</string>
 		<string name="pref_dirs_queue_title">Queue Directory</string>
 		<string name="pref_dirs_queue_summary">Directory to hold the queue of future torrents\nYou can manually add to this directory</string>
 		<string name="pref_dirs_completed_key">completedDir</string>
 		<string name="pref_dirs_completed_title">Completed Directory</string>
 		<string name="pref_dirs_completed_summary">Directory to move torrent files to after handling</string>
-		-->
-		<string name="pref_dirs_monitor_key">monitorDir</string>
-		<string name="pref_dirs_monitor_title">Monitor Directory</string>
-		<string name="pref_dirs_monitor_summary">Directory to monitor for torrent files (usually Downloads)</string>
-	
-		<string name="pref_debug_cat">DEBUG</string>
-		<string name="pref_debug_clearprefs_key">clearPrefs</string>
-		<string name="pref_debug_clearprefs_title">Clear Preferences</string>
-		<string name="pref_debug_clearprefs_summary">WARNING: This will clear all settings</string>
-	
-	
-	<!-- ui elements -->
-		
-		<string name="btn_confirm">Ok</string>
-		<string name="btn_cancel">Cancel</string>
-		<string name="btn_save">Save</string>
-		<string name="btn_delete">Delete</string>
-		
-		<string name="b_label_add">Add Label</string>
-		
+    -->
+    <string name="pref_dirs_monitor_key">monitorDir</string>
+    <string name="pref_dirs_monitor_title">Monitor Directory</string>
+    <string name="pref_dirs_monitor_summary">Directory to monitor for torrent files (usually Downloads)</string>
+    <string name="pref_debug_cat">DEBUG</string>
+    <string name="pref_debug_clearprefs_key">clearPrefs</string>
+    <string name="pref_debug_clearprefs_title">Clear Preferences</string>
+    <string name="pref_debug_clearprefs_summary">WARNING: This will clear all settings</string>
+
+    <!-- ui elements -->
+
+    <string name="btn_confirm">Ok</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_delete">Delete</string>
+    <string name="b_label_add">Add Label</string>
+    <string name="title_activity_label_multi_select_dialog">LabelMultiSelectDialog</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+
 </resources>

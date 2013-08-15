@@ -86,12 +86,21 @@ public class LabelManagerActivity extends ListActivity
 	
 	
 	
-//// dialogs
+//// dialogs or Activity calls
 	
-	private boolean showNewLabelDialog() {
-		Dialog newLabelDialog = new Dialog();
+	/** Open a dialog to ask user for a new label to save **/
+	private String getNewLabel() {
+		// Dialog newLabelDialog = new Dialog();
 		
-		
-		return false;
+		return null;
 	}
+	
+	private int[] deleteLabelsQuestion() {
+		
+		
+		return null;
+	}
+	
+	
+	
 }
